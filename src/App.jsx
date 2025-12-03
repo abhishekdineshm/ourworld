@@ -3,11 +3,10 @@ import {
   Gift, Lock, X, Heart, Star, Image as ImageIcon, 
   Calendar, Clock, Camera, Home, ChevronLeft, MapPin,
   Youtube, ExternalLink, PlayCircle, KeyRound, Sparkles,
-  ListTodo, CheckCircle2, Circle
+  ListTodo, CheckCircle2, Circle, LogOut
 } from 'lucide-react';
 
 import { calendarData, timelineData, galleryImages, videoData, initialBucketList, affirmations, globalData } from './data';
-
 
 // --- SHARED COMPONENTS ---
 
@@ -157,7 +156,7 @@ const LoginPage = ({ onLogin }) => {
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-200 to-amber-100 mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
             Our Private World
           </h1>
-          <p className="text-slate-400 text-sm">Please enter the 6 digit passcode to enter.</p>
+          <p className="text-slate-400 text-sm">Please enter the passcode to enter.</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
@@ -257,14 +256,24 @@ const BucketListPage = ({ onBack }) => {
   );
 };
 
-const HomePage = ({ setPage }) => {
+const HomePage = ({ setPage, onLogout }) => {
   const startDate = new Date("2021-11-11"); 
   const today = new Date();
   const diffTime = Math.abs(today - startDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
   return (
-    <div className="max-w-md mx-auto space-y-8 animate-scaleIn">
+    <div className="max-w-md mx-auto space-y-8 animate-scaleIn relative">
+      
+      {/* Logout Button */}
+      <button 
+        onClick={onLogout}
+        className="absolute top-2 right-0 p-2 text-slate-500 hover:text-red-400 transition-colors bg-slate-800/50 rounded-full"
+        title="Log Out"
+      >
+        <LogOut className="w-4 h-4" />
+      </button>
+
       {/* Hero Section */}
       <div className="text-center space-y-4 pt-8">
         <div className="relative inline-block">
@@ -348,7 +357,7 @@ const HomePage = ({ setPage }) => {
           className="group p-4 bg-slate-800/80 rounded-2xl border border-slate-700 hover:border-green-500/50 hover:bg-slate-800 transition-all text-left"
         >
           <ListTodo className="w-6 h-6 text-green-500 mb-3" />
-          <h3 className="font-bold text-white">2026 Bucket List</h3>
+          <h3 className="font-bold text-white">Bucket List</h3>
           <p className="text-slate-400 text-xs mt-1">Dreams we'll chase together</p>
         </button>
       </div>
@@ -661,6 +670,12 @@ export default function App() {
     setShowAffirmation(true); // Show affirm on fresh login
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('isAuth');
+    setPage('home');
+  };
+
   // If not authenticated, show ONLY the login page
   if (!isAuthenticated) {
     return <LoginPage onLogin={handleLoginSuccess} />;
@@ -675,7 +690,7 @@ export default function App() {
       {showAffirmation && <AffirmationModal onClose={() => setShowAffirmation(false)} />}
 
       <main className="relative z-10 max-w-5xl mx-auto px-4 py-6 md:py-10">
-        {page === 'home' && <HomePage setPage={setPage} />}
+        {page === 'home' && <HomePage setPage={setPage} onLogout={handleLogout} />}
         {page === 'advent' && <AdventPage onBack={() => setPage('home')} />}
         {page === 'timeline' && <TimelinePage onBack={() => setPage('home')} />}
         {page === 'gallery' && <GalleryPage onBack={() => setPage('home')} />}

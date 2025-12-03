@@ -157,7 +157,7 @@ const LoginPage = ({ onLogin }) => {
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-200 to-amber-100 mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
             Our Private World
           </h1>
-          <p className="text-slate-400 text-sm">Please enter the passcode to enter.</p>
+          <p className="text-slate-400 text-sm">Please enter the 6 digit passcode to enter.</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
@@ -180,7 +180,7 @@ const LoginPage = ({ onLogin }) => {
 
         {error && (
           <p className="text-red-400 text-sm font-medium animate-pulse bg-red-900/20 py-2 rounded-lg">
-            Incorrect passcode. Try '111121'.
+            Incorrect passcode. Try our special date.
           </p>
         )}
       </div>

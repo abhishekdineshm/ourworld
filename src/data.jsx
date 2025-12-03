@@ -245,7 +245,7 @@ export const initialBucketList = [
   { id: 1, text: "Go to the Gym and get healthy", completed: false },
   { id: 2, text: "Go on a car drive", completed: false },
   { id: 3, text: "Learn to Salsa dance", completed: false },
-  { id: 4, text: "Go on a hot air balloon ride", completed: false },
+  { id: 4, text: "Go for a long bus trip", completed: false },
   { id: 5, text: "Take our first flight together", completed: false },
   { id: 6, text: "Go to Nandi hills together", completed: false },
   { id: 7, text: "Build a blanket fort and watch movies all day", completed: false },

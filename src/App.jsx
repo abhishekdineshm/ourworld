@@ -6,7 +6,7 @@ import {
   ListTodo, CheckCircle2, Circle
 } from 'lucide-react';
 
-import { calendarData, timelineData, galleryImages, videoData, initialBucketList, affirmations } from './data';
+import { calendarData, timelineData, galleryImages, videoData, initialBucketList, affirmations, globalData } from './data';
 
 
 // --- SHARED COMPONENTS ---

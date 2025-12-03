@@ -1,6 +1,13 @@
 import React from 'react';
 import { MapPin, Heart, Gift, Home } from 'lucide-react';
 
+export const globalData = [
+  { 
+    image: "/images/pfp.png", 
+    title: "First Text", 
+  },];
+
+
 // 1. ADVENT CALENDAR DATA
 export const calendarData = Array.from({ length: 24 }, (_, i) => {
   const day = i + 1;
@@ -33,7 +40,7 @@ export const calendarData = Array.from({ length: 24 }, (_, i) => {
     image = "/images/calendar-5.jpg";
   } else if (day === 6) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "I'm sure, You'll look beatifull in thisss";
     image = "/images/calendar-6.jpg";
   } else if (day === 7) {
     type = 'image';
@@ -127,7 +134,7 @@ export const calendarData = Array.from({ length: 24 }, (_, i) => {
 export const timelineData = [
   { 
     date: "Sep 14, 2021", 
-    title: "First Text", 
+    title: "Our First Text", 
     desc: "The day our worlds collided in that Discord chat. You asked me if I want to play valorant with you, and the rest is history.", 
     image: "/images/story-1.png",
     icon: <MapPin className="w-4 h-4" /> 

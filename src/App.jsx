@@ -357,7 +357,7 @@ const HomePage = ({ setPage, onLogout }) => {
           className="group p-4 bg-slate-800/80 rounded-2xl border border-slate-700 hover:border-green-500/50 hover:bg-slate-800 transition-all text-left"
         >
           <ListTodo className="w-6 h-6 text-green-500 mb-3" />
-          <h3 className="font-bold text-white">Bucket List</h3>
+          <h3 className="font-bold text-white">2026 Bucket List</h3>
           <p className="text-slate-400 text-xs mt-1">Dreams we'll chase together</p>
         </button>
       </div>

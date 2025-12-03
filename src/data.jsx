@@ -21,22 +21,22 @@ export const calendarData = Array.from({ length: 24 }, (_, i) => {
 
   if (day === 1) {
     type = 'text';
-    content = "Welcome to your Christmas Countdown! I love you so much. Let the festivities begin! ❤️";
+    content = "Welcome to your Christmas Countdown! I idiot you so much. Let the festivities begin! ❤️";
   } else if (day === 2) {
     type = 'voucher';
-    content = "You already have this with you, Go open it my love";
+    content = "You already have this with you, Go open it my idiot";
     image = "/images/calendar-2.jpg";
   } else if (day === 3) {
     type = 'voucher';
-    content = "You already have this with you, Go open it my love";
+    content = "You already have this with you, Go open it my idiot";
     image = "/images/calendar-3.jpg";
   } else if (day === 4) {
     type = 'voucher';
-    content = "You already have this with you, Go open it my love";
+    content = "You already have this with you, Go open it my idiot";
     image = "/images/calendar-4.jpg";
   } else if (day === 5) {
     type = 'voucher';
-    content = "You already have this with you, Go open it my love";
+    content = "You already have this with you, Go open it my idiot";
     image = "/images/calendar-5.jpg";
   } else if (day === 6) {
     type = 'image';
@@ -44,71 +44,71 @@ export const calendarData = Array.from({ length: 24 }, (_, i) => {
     image = "/images/calendar-6.jpg";
   } else if (day === 7) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-7.jpg";
   } else if (day === 8) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-8.jpg";
   } else if (day === 9) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-9.jpg";
   } else if (day === 10) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-10.jpg";
   } else if (day === 11) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-11.jpg";
   } else if (day === 12) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-12.jpg";
   } else if (day === 13) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-13.jpg";
   } else if (day === 14) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-14.jpg";
   } else if (day === 15) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-15.jpg";
   } else if (day === 16) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-16.jpg";
   } else if (day === 17) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-17.jpg";
   } else if (day ===  18) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-18.jpg";
   } else if (day ===  19) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-19.jpg";
   } else if (day === 20) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-20.jpg";
   } else if (day === 21) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-21.jpg";
   } else if (day === 22) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-22.jpg";
   } else if (day === 23) {
     type = 'image';
-    content = "You already got his with you, Go open it my love";
+    content = "You already got his with you, Go open it my idiot";
     image = "/images/calendar-23.jpg";
   } else if (day === 24) {
     type = 'image';
@@ -121,9 +121,9 @@ export const calendarData = Array.from({ length: 24 }, (_, i) => {
     image = `/images/calendar-${day}.jpg`;
   } else {
     const messages = [
-      "You make every day brighter.", "I love your laugh.", "Can't wait for our movie night.",
+      "You make every day brighter.", "I idiot your laugh.", "Can't wait for our movie night.",
       "You are my favorite person.", "Sending you a giant virtual hug!", "Thinking of you...",
-      "You're doing amazing, keep going!", "I love us.",
+      "You're doing amazing, keep going!", "I idiot us.",
     ];
     content = messages[day % messages.length];
   }
@@ -149,14 +149,14 @@ export const timelineData = [
   { 
     date: "Nov 11, 2021", 
     title: "We're couplesss!!", 
-    desc: "The first time we said ‘I love you,’ it felt like the whole world paused and my belly fell down, because suddenly, life made sense with you in it.", 
+    desc: "The first time we said ‘I idiot you,’ it felt like the whole world paused and my belly fell down, because suddenly, life made sense with you in it.", 
     image: "/images/story-3.png",
     icon: <Gift className="w-4 h-4" /> 
   },
   { 
     date: "Jan 08, 2022", 
     title: "Atlast we meet", 
-    desc: "Atlast we meet,You looked Beautifulll... First hug, First kiss, I love you my love. I still remember your smell of that day", 
+    desc: "Atlast we meet,You looked Beautifulll... First hug, First kiss, I idiot you my idiot. I still remember your smell of that day", 
     image: "/images/story-4.png",
     icon: <Heart className="w-4 h-4" /> 
   },
@@ -224,11 +224,11 @@ export const affirmations = [
   "You give the best hugs in the entire universe.",
   "My favorite place is wherever you are.",
   "You are the most beautiful person I know, inside and out.",
-  "I love when you hug me sooo tight that it feels like I just want us to stay like that.",
+  "I idiot when you hug me sooo tight that it feels like I just want us to stay like that.",
   "It feels like we're are married whenever you're together.",
   "You are my greatest blessing.",
   "You're always my priority, You will be my priority.",
-  "I love you soo much that I'll do everything I can in this world to be with you.",
+  "I idiot you soo much that I'll do everything I can in this world to be with you.",
   "I lovvee the thought of growing old with you .",
   "You are my safe space.",
   "Thank you for loving me, even when I'm a bad boyfriend and annoying af.",
@@ -236,7 +236,7 @@ export const affirmations = [
   "I choose you. And I'll choose you over and over.",
   "You make me want to be a better person.",
   "I want to go to church with you on every sundays till I die .",
-  "I love looking at you while you sleep.",
+  "I idiot looking at you while you sleep.",
   "you're my 11:11 wish Ammuchi."
 ];
 

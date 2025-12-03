@@ -2,121 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { 
   Gift, Lock, X, Heart, Star, Image as ImageIcon, 
   Calendar, Clock, Camera, Home, ChevronLeft, MapPin,
-  Sparkles, Wand2, Send
+  Youtube, ExternalLink, PlayCircle, KeyRound, Sparkles,
+  ListTodo, CheckCircle2, Circle
 } from 'lucide-react';
 
-// --- DATA SECTIONS ---
+import { calendarData, timelineData, galleryImages, videoData, initialBucketList, affirmations } from './data';
 
-// 1. ADVENT CALENDAR DATA
-const calendarData = Array.from({ length: 24 }, (_, i) => {
-  const day = i + 1;
-  let type = 'text';
-  let content = '';
-  let image = null;
-
-  if (day % 3 === 0) type = 'image';
-  else if (day % 5 === 0) type = 'voucher';
-  else type = 'text';
-
-  if (day === 1) {
-    type = 'text';
-    content = "Welcome to your Christmas Countdown! I love you so much. Let the festivities begin! ❤️";
-  } else if (day === 2) {
-    type = 'image';
-    content = "Remember this trip? One of my favorite days with you.";
-    image = "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600&auto=format&fit=crop";
-  } else if (day === 24) {
-    type = 'image';
-    content = "Merry Christmas Eve! I can't wait to see you tonight.";
-    image = "https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=600";
-  } else if (type === 'voucher') {
-    content = "VOUCHER: Good for one 30-minute foot massage! 💆‍♀️";
-  } else if (type === 'image') {
-    content = "Just a reminder of how beautiful you are.";
-    image = `https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=600&auto=format&fit=crop&random=${day}`;
-  } else {
-    const messages = [
-      "You make every day brighter.", "I love your laugh.", "Can't wait for our movie night.",
-      "You are my favorite person.", "Sending you a giant virtual hug!", "Thinking of you...",
-      "You're doing amazing, keep going!", "I love us.",
-    ];
-    content = messages[day % messages.length];
-  }
-  return { day, type, content, image };
-});
-
-// 2. TIMELINE DATA (Updated with Images)
-const timelineData = [
-  { 
-    date: "Sep 14, 2021", 
-    title: "First Text", 
-    desc: "The day our worlds collided in that Discord chat. You asked me if I want to play valorant with you, and the rest is history.", 
-    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600",
-    icon: <MapPin className="w-4 h-4" /> 
-  },
-  { 
-    date: "Nov 05, 2021", 
-    title: "First Date", 
-    desc: "We went for Sushi and saw that terrible horror movie. I knew I wanted a second date before the appetizers even arrived.", 
-    image: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&w=600",
-    icon: <Heart className="w-4 h-4" /> 
-  },
-  { 
-    date: "Dec 25, 2021", 
-    title: "First Christmas", 
-    desc: "Exchanging gifts by the tree. You got me that scarf I still wear every winter.", 
-    image: "https://images.unsplash.com/photo-1544079813-92f589b2518e?q=80&w=600",
-    icon: <Gift className="w-4 h-4" /> 
-  },
-  { 
-    date: "Feb 14, 2022", 
-    title: "Valentine's Day", 
-    desc: "Our weekend getaway to the cabin. It snowed 6 inches and we were stuck inside—perfect.", 
-    image: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=600",
-    icon: <Heart className="w-4 h-4" /> 
-  },
-  { 
-    date: "Aug 20, 2023", 
-    title: "Moved In", 
-    desc: "Starting our life together in the new apartment. Pizza on the floor among the boxes.", 
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=600",
-    icon: <Home className="w-4 h-4" /> 
-  },
-];
-
-// 3. GALLERY DATA
-const galleryImages = [
-  "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600",
-  "https://images.unsplash.com/photo-1529619768328-e37af76c6fe5?q=80&w=600",
-  "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=600",
-  "https://images.unsplash.com/photo-1621600411688-4be93cd68504?q=80&w=600",
-  "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=600",
-  "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600",
-];
-
-// --- API HELPER ---
-const generateGeminiContent = async (prompt) => {
-  const apiKey = ""; // API key injected at runtime
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-        }),
-      }
-    );
-    const data = await response.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Couldn't generate text right now. Try again!";
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    return "Oops! Cupid's arrows missed. Please try again.";
-  }
-};
 
 // --- SHARED COMPONENTS ---
 
@@ -194,10 +85,179 @@ const BackButton = ({ onClick }) => (
   </button>
 );
 
+const AffirmationModal = ({ onClose }) => {
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const randomMsg = affirmations[Math.floor(Math.random() * affirmations.length)];
+    setMessage(randomMsg);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div 
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
+      
+      <div className="relative bg-white text-slate-900 rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl animate-scaleIn p-8 text-center border-4 border-red-100">
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-400 via-pink-500 to-red-400" />
+        
+        <div className="mb-4 flex justify-center">
+          <div className="p-3 bg-red-50 rounded-full">
+            <Sparkles className="w-8 h-8 text-red-500" />
+          </div>
+        </div>
+
+        <h3 className="text-xl font-bold text-slate-800 mb-2 font-serif">Daily Reminder</h3>
+        <p className="text-lg text-slate-600 leading-relaxed italic">
+          "{message}"
+        </p>
+
+        <button 
+          onClick={onClose}
+          className="mt-6 px-6 py-2 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-colors text-sm font-medium"
+        >
+          I know, I love you too ❤️
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // --- PAGES ---
 
+const LoginPage = ({ onLogin }) => {
+  const [input, setInput] = useState('');
+  const [error, setError] = useState(false);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // SIMPLE STATIC PASSWORD CHECK
+    if (input === '111121') {
+      onLogin();
+    } else {
+      setError(true);
+      setTimeout(() => setError(false), 2000); // Clear error after 2s
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4 overflow-hidden relative">
+      {/* Background Effect */}
+      <div className="absolute inset-0 z-0 opacity-20" style={{backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px)`, backgroundSize: '30px 30px'}} />
+      <FloatingHearts />
+
+      <div className="relative z-10 max-w-md w-full bg-slate-800/60 backdrop-blur-xl rounded-2xl p-8 border border-slate-700 shadow-2xl text-center space-y-6 animate-scaleIn">
+        <div className="inline-block p-4 rounded-full bg-gradient-to-br from-red-500/20 to-purple-500/20 mb-2 border border-slate-600/50">
+          <KeyRound className="w-8 h-8 text-red-300" />
+        </div>
+        
+        <div>
+          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-200 to-amber-100 mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Our Private World
+          </h1>
+          <p className="text-slate-400 text-sm">Please enter the passcode to enter.</p>
+        </div>
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <input
+            type="password"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Passcode"
+            className="w-full bg-slate-900/80 border border-slate-600 rounded-xl p-4 text-white text-center text-lg tracking-[0.5em] focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all placeholder:tracking-normal placeholder:text-sm"
+            autoFocus
+          />
+          
+          <button 
+            type="submit"
+            className="w-full bg-gradient-to-r from-red-700 to-red-900 text-white font-bold py-3 px-6 rounded-xl hover:from-red-600 hover:to-red-800 transition-all shadow-lg shadow-red-900/20 active:scale-95"
+          >
+            Unlock Memories
+          </button>
+        </form>
+
+        {error && (
+          <p className="text-red-400 text-sm font-medium animate-pulse bg-red-900/20 py-2 rounded-lg">
+            Incorrect passcode. Try '111121'.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const BucketListPage = ({ onBack }) => {
+  // Initialize state from localStorage or default list
+  const [items, setItems] = useState(() => {
+    const saved = localStorage.getItem('bucketList');
+    return saved ? JSON.parse(saved) : initialBucketList;
+  });
+
+  // Save to localStorage whenever items change
+  useEffect(() => {
+    localStorage.setItem('bucketList', JSON.stringify(items));
+  }, [items]);
+
+  const toggleItem = (id) => {
+    setItems(items.map(item => 
+      item.id === id ? { ...item, completed: !item.completed } : item
+    ));
+  };
+
+  const completedCount = items.filter(i => i.completed).length;
+  const progress = Math.round((completedCount / items.length) * 100);
+
+  return (
+    <div className="animate-scaleIn max-w-2xl mx-auto">
+      <div className="flex items-center justify-between mb-6">
+        <BackButton onClick={onBack} />
+        <h2 className="text-2xl font-bold text-amber-300">Our Bucket List</h2>
+      </div>
+
+      <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 mb-6">
+        <div className="flex justify-between items-end mb-2">
+          <span className="text-slate-400 text-sm font-medium">Progress</span>
+          <span className="text-amber-300 font-bold">{progress}% Achieved</span>
+        </div>
+        <div className="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+          <div 
+            className="bg-gradient-to-r from-amber-500 to-red-500 h-2.5 rounded-full transition-all duration-1000 ease-out" 
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {items.map((item) => (
+          <div 
+            key={item.id}
+            onClick={() => toggleItem(item.id)}
+            className={`group flex items-center gap-4 p-4 rounded-xl border transition-all cursor-pointer ${
+              item.completed 
+                ? 'bg-green-900/20 border-green-900/50' 
+                : 'bg-slate-800/80 border-slate-700 hover:border-amber-500/50 hover:-translate-y-0.5'
+            }`}
+          >
+            <div className={`flex-shrink-0 transition-colors ${item.completed ? 'text-green-500' : 'text-slate-500 group-hover:text-amber-400'}`}>
+              {item.completed ? <CheckCircle2 className="w-6 h-6" /> : <Circle className="w-6 h-6" />}
+            </div>
+            <span className={`text-lg font-medium transition-all ${
+              item.completed 
+                ? 'text-slate-500 line-through' 
+                : 'text-white'
+            }`}>
+              {item.text}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const HomePage = ({ setPage }) => {
-  // Calculate days together (Example start date)
   const startDate = new Date("2021-11-11"); 
   const today = new Date();
   const diffTime = Math.abs(today - startDate);
@@ -210,7 +270,8 @@ const HomePage = ({ setPage }) => {
         <div className="relative inline-block">
           <div className="w-32 h-32 mx-auto rounded-full border-4 border-red-500/30 overflow-hidden shadow-2xl">
             <img 
-              src="https://images.unsplash.com/photo-1542596594-649edbc13630?q=80&w=400" 
+              src="/images/hero-couple.jpg" 
+              onError={(e) => e.target.src = "/images/pfp.png"} 
               alt="Couple" 
               className="w-full h-full object-cover"
             />
@@ -250,7 +311,6 @@ const HomePage = ({ setPage }) => {
             <Gift className="w-8 h-8 text-red-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="absolute inset-0 bg-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-          {/* Subtle snow inside the button only */}
           <div className="absolute inset-0 opacity-20 pointer-events-none"><Snowflakes className="absolute inset-0" /></div>
         </button>
 
@@ -270,6 +330,26 @@ const HomePage = ({ setPage }) => {
           <Camera className="w-6 h-6 text-blue-400 mb-3" />
           <h3 className="font-bold text-white">Gallery</h3>
           <p className="text-slate-400 text-xs mt-1">Best memories</p>
+        </button>
+
+        {/* NEW VIDEOS BUTTON */}
+        <button 
+          onClick={() => setPage('videos')}
+          className="group p-4 bg-slate-800/80 rounded-2xl border border-slate-700 hover:border-red-500/50 hover:bg-slate-800 transition-all text-left"
+        >
+          <Youtube className="w-6 h-6 text-red-500 mb-3" />
+          <h3 className="font-bold text-white">Videos</h3>
+          <p className="text-slate-400 text-xs mt-1">Our adventures</p>
+        </button>
+
+        {/* NEW BUCKET LIST BUTTON */}
+        <button 
+          onClick={() => setPage('bucketlist')}
+          className="group p-4 bg-slate-800/80 rounded-2xl border border-slate-700 hover:border-green-500/50 hover:bg-slate-800 transition-all text-left"
+        >
+          <ListTodo className="w-6 h-6 text-green-500 mb-3" />
+          <h3 className="font-bold text-white">2026 Bucket List</h3>
+          <p className="text-slate-400 text-xs mt-1">Dreams we'll chase together</p>
         </button>
       </div>
       
@@ -314,7 +394,6 @@ const TimelinePage = ({ onBack }) => {
         ))}
       </div>
 
-      {/* Modal for Timeline Event */}
       {selectedEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div 
@@ -323,10 +402,13 @@ const TimelinePage = ({ onBack }) => {
           />
           
           <div className="relative bg-white text-slate-900 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-scaleIn">
-            {/* Header Image */}
             <div className="h-48 overflow-hidden relative">
               <img 
                 src={selectedEvent.image} 
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  e.target.src = "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600"; 
+                }}
                 alt={selectedEvent.title} 
                 className="w-full h-full object-cover"
               />
@@ -346,7 +428,6 @@ const TimelinePage = ({ onBack }) => {
               </div>
             </div>
 
-            {/* Content Body */}
             <div className="p-6">
               <p className="text-slate-600 text-lg leading-relaxed">
                 {selectedEvent.desc}
@@ -368,12 +449,75 @@ const GalleryPage = ({ onBack }) => (
     <div className="columns-2 md:columns-3 gap-4 space-y-4">
       {galleryImages.map((src, i) => (
         <div key={i} className="break-inside-avoid rounded-xl overflow-hidden hover:opacity-90 transition-opacity">
-          <img src={src} alt="Memory" className="w-full h-auto object-cover" />
+          <img 
+            src={src} 
+            onError={(e) => e.target.style.display = 'none'} 
+            alt="Memory" 
+            className="w-full h-auto object-cover" 
+          />
         </div>
       ))}
     </div>
   </div>
 );
+
+const VideosPage = ({ onBack }) => {
+  // Helper to extract YouTube ID for thumbnails
+  const getYouTubeId = (url) => {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
+  return (
+    <div className="animate-scaleIn max-w-2xl mx-auto">
+      <div className="flex items-center justify-between mb-6">
+        <BackButton onClick={onBack} />
+        <h2 className="text-2xl font-bold text-red-400">Our Videos</h2>
+      </div>
+
+      <div className="space-y-6">
+        {videoData.map((video, index) => {
+          const videoId = getYouTubeId(video.url);
+          const thumbnailUrl = videoId 
+            ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+            : "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600"; // Fallback
+
+          return (
+            <a 
+              key={index}
+              href={video.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block group bg-slate-800/80 rounded-2xl overflow-hidden border border-slate-700 hover:border-red-500/50 transition-all hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="relative aspect-video bg-slate-900">
+                 <img 
+                   src={thumbnailUrl} 
+                   alt={video.title}
+                   className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                 />
+                 <div className="absolute inset-0 flex items-center justify-center">
+                   <div className="bg-red-600/90 text-white rounded-full p-3 group-hover:scale-110 transition-transform shadow-lg">
+                     <PlayCircle className="w-8 h-8 fill-current" />
+                   </div>
+                 </div>
+              </div>
+              <div className="p-4 flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors">{video.title}</h3>
+                  <p className="text-slate-400 text-sm mt-1">{video.desc}</p>
+                </div>
+                <ExternalLink className="w-5 h-5 text-slate-500 group-hover:text-white transition-colors flex-shrink-0 mt-1" />
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const AdventPage = ({ onBack }) => {
   const [openedDays, setOpenedDays] = useState([]);
@@ -394,11 +538,8 @@ const AdventPage = ({ onBack }) => {
   const isUnlockable = (day) => {
     const currentMonth = today.getMonth();
     const currentDate = today.getDate();
-    
     // Strict Mode: Only unlock if it's December (Month 11)
     if (currentMonth !== 11) return false;
-    
-    // Check if the date has arrived
     return currentDate >= day;
   };
 
@@ -467,7 +608,6 @@ const AdventPage = ({ onBack }) => {
         })}
       </div>
 
-      {/* Modal */}
       {selectedDay && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedDay(null)} />
@@ -479,7 +619,15 @@ const AdventPage = ({ onBack }) => {
             <div className="p-6 text-center">
               {selectedDay.type === 'image' && selectedDay.image && (
                 <div className="mb-4 rounded-lg overflow-hidden border-2 border-slate-100">
-                  <img src={selectedDay.image} alt="Memory" className="w-full h-40 object-cover" />
+                  <img 
+                    src={selectedDay.image} 
+                    onError={(e) => {
+                      e.target.onerror = null; 
+                      e.target.src = "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=600";
+                    }}
+                    alt="Memory" 
+                    className="w-full h-40 object-cover" 
+                  />
                 </div>
               )}
               <p className="text-lg text-slate-700 leading-relaxed font-medium">{selectedDay.content}</p>
@@ -494,25 +642,47 @@ const AdventPage = ({ onBack }) => {
 // --- MAIN APP ---
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [page, setPage] = useState('home');
+  const [showAffirmation, setShowAffirmation] = useState(false);
+
+  // Check session storage on initial load
+  useEffect(() => {
+    const isAuth = sessionStorage.getItem('isAuth');
+    if (isAuth === 'true') {
+      setIsAuthenticated(true);
+      setShowAffirmation(true); // Show affirm on refresh if logged in
+    }
+  }, []);
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+    sessionStorage.setItem('isAuth', 'true');
+    setShowAffirmation(true); // Show affirm on fresh login
+  };
+
+  // If not authenticated, show ONLY the login page
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={handleLoginSuccess} />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans relative selection:bg-red-500 selection:text-white pb-12 overflow-hidden">
-      {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-20" style={{backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px)`, backgroundSize: '30px 30px'}} />
       
-      {/* Background Animation Switcher */}
       {(page === 'advent' || page === 'home') ? <Snowflakes /> : <FloatingHearts />}
       
+      {showAffirmation && <AffirmationModal onClose={() => setShowAffirmation(false)} />}
+
       <main className="relative z-10 max-w-5xl mx-auto px-4 py-6 md:py-10">
         {page === 'home' && <HomePage setPage={setPage} />}
         {page === 'advent' && <AdventPage onBack={() => setPage('home')} />}
-        {page === 'cupid' && <CupidPage onBack={() => setPage('home')} />}
         {page === 'timeline' && <TimelinePage onBack={() => setPage('home')} />}
         {page === 'gallery' && <GalleryPage onBack={() => setPage('home')} />}
+        {page === 'videos' && <VideosPage onBack={() => setPage('home')} />}
+        {page === 'bucketlist' && <BucketListPage onBack={() => setPage('home')} />}
       </main>
 
-      {/* Shared CSS Animation styles */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
         

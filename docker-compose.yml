@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  ourworld-app:
+    build: .
+    container_name: ourworld-app
+    ports:
+      - "8080:80"  # Maps port 80 inside container to port 8080 on your machine
+    restart: always

@@ -24,19 +24,19 @@ export const calendarData = Array.from({ length: 24 }, (_, i) => {
     content = "Welcome to your Christmas Countdown! I love you so much. Let the festivities begin! ❤️";
   } else if (day === 2) {
     type = 'voucher';
-    content = "You already have this with you, Go open it idiot";
+    content = "You already have this with you, Go open it my kunjavee";
     image = "/images/calendar-2.jpg";
   } else if (day === 3) {
     type = 'voucher';
-    content = "You already have this with you, Go open it idiot";
+    content = "You already have this with you, Go open it my kunjavee";
     image = "/images/calendar-3.jpg";
   } else if (day === 4) {
     type = 'voucher';
-    content = "You already have this with you, Go open it idiot";
+    content = "You already have this with you, Go open it my kunjavee";
     image = "/images/calendar-4.jpg";
   } else if (day === 5) {
     type = 'voucher';
-    content = "You already have this with you, Go open it idiot";
+    content = "You already have this with you, Go open it my kunjavee";
     image = "/images/calendar-5.jpg";
   } else if (day === 6) {
     type = 'image';
@@ -44,71 +44,71 @@ export const calendarData = Array.from({ length: 24 }, (_, i) => {
     image = "/images/calendar-6.jpg";
   } else if (day === 7) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-7.jpg";
   } else if (day === 8) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-8.jpg";
   } else if (day === 9) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-9.jpg";
   } else if (day === 10) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-10.jpg";
   } else if (day === 11) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-11.jpg";
   } else if (day === 12) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-12.jpg";
   } else if (day === 13) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-13.jpg";
   } else if (day === 14) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-14.jpg";
   } else if (day === 15) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-15.jpg";
   } else if (day === 16) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-16.jpg";
   } else if (day === 17) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-17.jpg";
   } else if (day ===  18) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-18.jpg";
   } else if (day ===  19) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-19.jpg";
   } else if (day === 20) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-20.jpg";
   } else if (day === 21) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-21.jpg";
   } else if (day === 22) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-22.jpg";
   } else if (day === 23) {
     type = 'image';
-    content = "You already got his with you, Go open it idiot";
+    content = "You already got his with you, Go open it my kunjavee";
     image = "/images/calendar-23.jpg";
   } else if (day === 24) {
     type = 'image';
@@ -156,7 +156,7 @@ export const timelineData = [
   { 
     date: "Jan 08, 2022", 
     title: "Atlast we meet", 
-    desc: "Atlast we meet,You looked Beautifulll... First hug, First kiss, I love you idiot. I still remember your smell of that day", 
+    desc: "Atlast we meet,You looked Beautifulll... First hug, First kiss, I love you my kunjavee. I still remember your smell of that day", 
     image: "/images/story-4.png",
     icon: <Heart className="w-4 h-4" /> 
   },
